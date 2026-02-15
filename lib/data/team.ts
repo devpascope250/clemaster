@@ -17,7 +17,7 @@ export const teamMembers: TeamMember[] = [
     email: 'james@clemaster.com',
     phone: '+250788123456',
     linkedin: 'https://linkedin.com',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop',
+    image: '/images/hero-cleaning.jpg',
     bio: 'Industry veteran with 15+ years of experience in manufacturing and business development.',
   },
   {
@@ -27,7 +27,7 @@ export const teamMembers: TeamMember[] = [
     email: 'grace@clemaster.com',
     phone: '+250788123457',
     linkedin: 'https://linkedin.com',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop',
+    image: '/images/hero-cleaning.jpg',
     bio: 'Passionate about process optimization and maintaining high production standards.',
   },
   {
@@ -37,7 +37,7 @@ export const teamMembers: TeamMember[] = [
     email: 'peter@clemaster.com',
     phone: '+250788123458',
     linkedin: 'https://linkedin.com',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop',
+    image: '/images/hero-cleaning.jpg',
     bio: 'Chemist and innovator focused on creating sustainable and effective cleaning solutions.',
   },
   {
@@ -47,7 +47,7 @@ export const teamMembers: TeamMember[] = [
     email: 'amara@clemaster.com',
     phone: '+250788123459',
     linkedin: 'https://linkedin.com',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop',
+    image: '/images/hero-cleaning.jpg',
     bio: 'Strategic thinker with expertise in market expansion and brand positioning.',
   },
   {
@@ -57,7 +57,7 @@ export const teamMembers: TeamMember[] = [
     email: 'david@clemaster.com',
     phone: '+250788123460',
     linkedin: 'https://linkedin.com',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop',
+    image: '/images/hero-cleaning.jpg',
     bio: 'Dedicated to ensuring every product meets international quality and safety standards.',
   },
 ]

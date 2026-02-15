@@ -62,7 +62,7 @@ export default function AboutPage() {
             </div>
             <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
               <Image
-                src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=600&fit=crop"
+                src="/images/hero-cleaning.jpg"
                 alt="Manufacturing Facility"
                 fill
                 className="object-cover"

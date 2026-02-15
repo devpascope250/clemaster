@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     siteName: 'Clemaster Industries',
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=1200&h=630&fit=crop',
+        url: '/images/hero-cleaning.jpg',
         width: 1200,
         height: 630,
         alt: 'Clemaster Industries',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Clemaster Industries',
     description: 'Professional cleaning solutions for businesses worldwide.',
-    images: ['https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=1200&h=630&fit=crop'],
+    images: ['/images/hero-cleaning.jpg'],
   },
 }
 

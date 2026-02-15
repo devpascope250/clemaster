@@ -21,7 +21,7 @@ export const blogPosts: BlogPost[] = [
     author: 'John Doe',
     date: '2024-02-10',
     category: 'Business',
-    image: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&h=400&fit=crop',
+    image: '/images/hero-cleaning.jpg',
     readTime: 5,
   },
   {
@@ -33,7 +33,7 @@ export const blogPosts: BlogPost[] = [
     author: 'Jane Smith',
     date: '2024-02-05',
     category: 'Sustainability',
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5f400f7d1?w=600&h=400&fit=crop',
+    image: '/images/hero-cleaning.jpg',
     readTime: 6,
   },
   {
@@ -45,7 +45,7 @@ export const blogPosts: BlogPost[] = [
     author: 'Dr. Michael Chen',
     date: '2024-01-30',
     category: 'Health & Safety',
-    image: 'https://images.unsplash.com/photo-1579154204601-01d430248e3d?w=600&h=400&fit=crop',
+    image: '/images/hero-cleaning.jpg',
     readTime: 7,
   },
   {
@@ -57,7 +57,7 @@ export const blogPosts: BlogPost[] = [
     author: 'Robert Williams',
     date: '2024-01-20',
     category: 'Business',
-    image: 'https://images.unsplash.com/photo-1507842217343-583f7270bfba?w=600&h=400&fit=crop',
+    image: '/images/hero-cleaning.jpg',
     readTime: 5,
   },
   {
@@ -69,7 +69,7 @@ export const blogPosts: BlogPost[] = [
     author: 'Lisa Anderson',
     date: '2024-01-10',
     category: 'Health & Safety',
-    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop',
+    image: '/images/hero-cleaning.jpg',
     readTime: 6,
   },
   {
@@ -81,7 +81,7 @@ export const blogPosts: BlogPost[] = [
     author: 'Dr. Sarah Green',
     date: '2024-01-01',
     category: 'Health & Safety',
-    image: 'https://images.unsplash.com/photo-1584622181563-430f63602d4b?w=600&h=400&fit=crop',
+    image: '/images/hero-cleaning.jpg',
     readTime: 8,
   },
 ]

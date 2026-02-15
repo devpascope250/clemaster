@@ -8,7 +8,7 @@ export function generateMetadata(options: {
 }): Metadata {
   const baseUrl = 'https://clemaster.com'
   const url = options.url ? `${baseUrl}${options.url}` : baseUrl
-  const image = options.image || 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=1200&h=630&fit=crop'
+  const image = options.image || '/images/hero-cleaning.jpg'
 
   return {
     title: `${options.title} | Clemaster Industries`,
@@ -51,7 +51,7 @@ export function generateBlogMetadata(options: {
 }): Metadata {
   const baseUrl = 'https://clemaster.com'
   const url = options.slug ? `${baseUrl}/blog/${options.slug}` : baseUrl
-  const image = options.image || 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=1200&h=630&fit=crop'
+  const image = options.image || '/images/hero-cleaning.jpg'
 
   return {
     title: `${options.title} | Clemaster Blog`,

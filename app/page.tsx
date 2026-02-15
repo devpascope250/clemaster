@@ -42,7 +42,7 @@ export default function Home() {
             </div>
             <div className="relative h-96 rounded-lg overflow-hidden shadow-2xl">
               <Image
-                src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&h=600&fit=crop"
+                src="/images/hero-cleaning.jpg"
                 alt="Cleaning Products"
                 fill
                 className="object-cover"
