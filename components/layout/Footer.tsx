@@ -1,12 +1,33 @@
+'use client'
+
 import Link from 'next/link'
-import { Mail, Phone, Linkedin, Twitter, Facebook } from 'lucide-react'
+import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, Youtube } from 'lucide-react'
+import { defaultSocialMediaAccounts } from '@/lib/data/socialMedia'
+
+const companyInfo = {
+  name: 'Clemaster Industries',
+  legalName: 'Value Platform Industrial Rwanda Ltd',
+  domain: 'clemasterindustries.com',
+  email: 'info@clemasterindustries.com',
+  phone: '+250788123456',
+  address: 'Kigali, Rwanda',
+  motto: 'Excellence in Cleaning, Innovation in Hygiene',
+}
+
+const socialMediaIcons: Record<string, React.ComponentType<{ size: number }>> = {
+  facebook: Facebook,
+  instagram: Instagram,
+  linkedin: Linkedin,
+  twitter: Twitter,
+  youtube: Youtube,
+}
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
 
   const footerSections = [
     {
-      title: 'Company',
+      title: 'Quick Links',
       links: [
         { label: 'About Us', href: '/about' },
         { label: 'Products', href: '/products' },
@@ -23,20 +44,14 @@ export function Footer() {
         { label: 'Terms of Service', href: '#' },
       ],
     },
-    {
-      title: 'Follow Us',
-      links: [
-        { label: 'LinkedIn', href: '#', icon: Linkedin },
-        { label: 'Twitter', href: '#', icon: Twitter },
-        { label: 'Facebook', href: '#', icon: Facebook },
-      ],
-    },
   ]
+
+  const activeSocialMedia = defaultSocialMediaAccounts.filter((acc) => acc.status === 'active')
 
   return (
     <footer className="border-t border-border bg-secondary text-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
           {/* Brand Section */}
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2">
@@ -45,32 +60,20 @@ export function Footer() {
               </div>
               <span className="text-xl font-bold">Clemaster</span>
             </div>
+            <p className="text-sm text-white/80 italic">{companyInfo.motto}</p>
             <p className="text-sm text-white/80">
               Leading manufacturer of hygienic and cleaning products for businesses worldwide.
             </p>
-            <div className="flex gap-3">
-              <a href="mailto:info@clemaster.com" className="hover:text-white/80 transition-colors">
-                <Mail size={20} />
-              </a>
-              <a href="tel:+1234567890" className="hover:text-white/80 transition-colors">
-                <Phone size={20} />
-              </a>
-            </div>
           </div>
 
-          {/* Footer Links */}
+          {/* Quick Links */}
           {footerSections.map((section) => (
             <div key={section.title} className="flex flex-col gap-4">
               <h3 className="font-semibold text-white">{section.title}</h3>
               <ul className="space-y-2">
                 {section.links.map((link) => (
                   <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-white/80 hover:text-white transition-colors inline-flex items-center gap-2"
-                    >
-                      {/* @ts-ignore */}
-                      {link.icon && <link.icon size={16} />}
+                    <Link href={link.href} className="text-sm text-white/80 hover:text-white transition-colors">
                       {link.label}
                     </Link>
                   </li>
@@ -78,13 +81,62 @@ export function Footer() {
               </ul>
             </div>
           ))}
+
+          {/* Contact Information */}
+          <div className="flex flex-col gap-4">
+            <h3 className="font-semibold text-white">Contact</h3>
+            <div className="space-y-3 text-sm">
+              <div className="flex items-start gap-2">
+                <Mail size={18} className="flex-shrink-0 mt-0.5" />
+                <a href={`mailto:${companyInfo.email}`} className="text-white/80 hover:text-white transition-colors">
+                  {companyInfo.email}
+                </a>
+              </div>
+              <div className="flex items-start gap-2">
+                <Phone size={18} className="flex-shrink-0 mt-0.5" />
+                <a href={`tel:${companyInfo.phone}`} className="text-white/80 hover:text-white transition-colors">
+                  {companyInfo.phone}
+                </a>
+              </div>
+              <div className="flex items-start gap-2">
+                <MapPin size={18} className="flex-shrink-0 mt-0.5" />
+                <span className="text-white/80">{companyInfo.address}</span>
+              </div>
+            </div>
+
+            {/* Social Media Icons */}
+            {activeSocialMedia.length > 0 && (
+              <div className="pt-2 border-t border-white/10">
+                <h4 className="text-xs font-semibold text-white/60 mb-3">Follow Us</h4>
+                <div className="flex gap-3 flex-wrap">
+                  {activeSocialMedia.map((account) => {
+                    const IconComponent = socialMediaIcons[account.icon]
+                    return (
+                      <a
+                        key={account.id}
+                        href={account.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title={account.platform}
+                        className="hover:text-white/80 transition-colors"
+                      >
+                        {IconComponent ? <IconComponent size={20} /> : <Phone size={20} />}
+                      </a>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Bottom Section */}
         <div className="border-t border-white/10 pt-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-white/80">
-            <p>&copy; {currentYear} Clemaster Industries. All rights reserved.</p>
-            <p>Value Platform Industrial Rwanda Ltd</p>
+            <p>&copy; {currentYear} {companyInfo.legalName}. All rights reserved.</p>
+            <p>
+              <span className="font-semibold">{companyInfo.domain}</span>
+            </p>
           </div>
         </div>
       </div>

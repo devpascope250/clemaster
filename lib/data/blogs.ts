@@ -8,6 +8,7 @@ export interface BlogPost {
   date: string
   category: string
   image: string
+  images?: string[]
   readTime: number
 }
 

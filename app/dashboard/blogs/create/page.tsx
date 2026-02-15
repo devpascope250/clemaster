@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
+import { BlogImageUpload } from '@/components/BlogImageUpload'
 
 export default function CreateBlogPage() {
   const [formData, setFormData] = useState({
@@ -15,7 +16,9 @@ export default function CreateBlogPage() {
     author: '',
   })
 
+  const [images, setImages] = useState<string[]>([])
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -28,11 +31,31 @@ export default function CreateBlogPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Blog post submitted:', formData)
+    
+    // Validate images
+    if (images.length === 0) {
+      setError('At least 1 image is required')
+      return
+    }
+    
+    if (images.length > 4) {
+      setError('Maximum 4 images allowed')
+      return
+    }
+
+    const blogData = {
+      ...formData,
+      images,
+      featuredImage: images[0],
+    }
+    
+    console.log('Blog post submitted:', blogData)
     setSubmitted(true)
     setTimeout(() => {
       setSubmitted(false)
       setFormData({ title: '', slug: '', excerpt: '', content: '', category: 'Business', author: '' })
+      setImages([])
+      setError('')
     }, 2000)
   }
 
@@ -62,6 +85,11 @@ export default function CreateBlogPage() {
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
+            {error && (
+              <div className="rounded-lg bg-red-50 border border-red-200 text-red-800 px-4 py-3">
+                {error}
+              </div>
+            )}
             {/* Title */}
             <div>
               <label className="block text-sm font-semibold text-foreground mb-2">Title</label>
@@ -150,6 +178,9 @@ export default function CreateBlogPage() {
                 className="w-full px-4 py-3 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary resize-none"
               />
             </div>
+
+            {/* Images */}
+            <BlogImageUpload images={images} onImagesChange={setImages} maxImages={4} />
 
             {/* Buttons */}
             <div className="flex gap-4">

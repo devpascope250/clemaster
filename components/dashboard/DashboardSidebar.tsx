@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { getCurrentUser, isAdmin, isEditor } from '@/lib/auth'
-import { BarChart3, Users, MessageSquare, FileText, Plus } from 'lucide-react'
+import { BarChart3, Users, MessageSquare, FileText, Plus, Share2 } from 'lucide-react'
 import { useMemo } from 'react'
 
 export function DashboardSidebar() {
@@ -30,6 +30,11 @@ export function DashboardSidebar() {
         label: 'Messages',
         href: '/dashboard/messages',
         icon: MessageSquare,
+      })
+      baseItems.push({
+        label: 'Social Media',
+        href: '/dashboard/social-media',
+        icon: Share2,
       })
     }
 
