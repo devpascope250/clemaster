@@ -65,6 +65,7 @@ export default function AboutPage() {
                 src="/images/hero-cleaning.jpg"
                 alt="Manufacturing Facility"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                 className="object-cover"
               />
             </div>

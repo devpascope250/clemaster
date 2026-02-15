@@ -12,7 +12,7 @@ export function BlogCard({ post }: BlogCardProps) {
     <article className="flex flex-col h-full rounded-lg overflow-hidden border border-border bg-card hover:shadow-lg transition-shadow duration-300">
       {/* Image Container */}
       <div className="relative w-full h-48 bg-muted overflow-hidden">
-        <Image src={post.image} alt={post.title} fill className="object-cover hover:scale-105 transition-transform duration-300" />
+        <Image src={post.image} alt={post.title} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px" className="object-cover hover:scale-105 transition-transform duration-300" />
       </div>
 
       {/* Content Container */}

@@ -12,7 +12,7 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
     <div className="flex flex-col h-full rounded-lg overflow-hidden border border-border bg-card hover:shadow-lg transition-shadow duration-300">
       {/* Image Container */}
       <div className="relative w-full h-56 bg-muted overflow-hidden">
-        <Image src={member.image} alt={member.name} fill className="object-cover" />
+        <Image src={member.image} alt={member.name} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px" className="object-cover" />
       </div>
 
       {/* Content Container */}

@@ -62,7 +62,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
       {/* Featured Image */}
       <div className="relative h-96 sm:h-[500px] w-full bg-muted">
-        <Image src={post.image} alt={post.title} fill className="object-cover" />
+        <Image src={post.image} alt={post.title} fill sizes="100vw" className="object-cover" />
       </div>
 
       {/* Article Content */}
