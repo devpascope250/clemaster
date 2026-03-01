@@ -8,11 +8,16 @@ import { ContactButtons } from '@/components/layout/ContactButtons'
 
 const _geist = Geist({ subsets: ['latin'] })
 const _geistMono = Geist_Mono({ subsets: ['latin'] })
-
 export const metadata: Metadata = {
   title: 'Clemaster Industries | Professional Cleaning Solutions',
   description:
     'Leading manufacturer of professional-grade cleaning and hygienic products serving businesses worldwide. Quality, innovation, and sustainability.',
+    icons: {
+      icon: '/favicon.ico',
+      apple: '/apple-touch-icon.png',
+      shortcut: '/apple-touch-icon.png',
+      
+    },
   openGraph: {
     title: 'Clemaster Industries | Professional Cleaning Solutions',
     description: 'Leading manufacturer of professional-grade cleaning and hygienic products.',
