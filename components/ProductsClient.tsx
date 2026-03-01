@@ -45,7 +45,7 @@ export function ProductsClient({ products }: ProductsClientProps) {
           </div>
 
           {/* Category Filter */}
-          <div className="flex flex-wrap gap-2">
+          {/* <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <button
                 key={category}
@@ -59,7 +59,7 @@ export function ProductsClient({ products }: ProductsClientProps) {
                 {category}
               </button>
             ))}
-          </div>
+          </div> */}
 
           {/* Results Count */}
           <p className="text-sm text-muted-foreground mt-4">

@@ -11,19 +11,19 @@ export function ContactButtons() {
     {
       icon: MessageCircle,
       label: 'WhatsApp',
-      href: 'https://wa.me/250788123456',
+      href: 'https://wa.me/250790137658',
       color: 'bg-green-500 hover:bg-green-600',
     },
     {
       icon: Phone,
       label: 'Phone',
-      href: 'tel:+250788123456',
+      href: 'tel:+250790137658',
       color: 'bg-blue-500 hover:bg-blue-600',
     },
     {
       icon: Mail,
       label: 'Email',
-      href: 'mailto:info@clemaster.com',
+      href: 'mailto:info@clemasterindustries.com',
       color: 'bg-red-500 hover:bg-red-600',
     },
   ]

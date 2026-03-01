@@ -61,16 +61,16 @@ export const workingAreas: WorkingArea[] = [
     region: 'Central Africa',
     description: 'Expanding presence in DRC, Congo, and surrounding countries with growing partnerships.',
   },
-  {
-    id: '3',
-    region: 'Southern Africa',
-    description: 'Strategic partnerships in South Africa, Botswana, and Zimbabwe for regional supply.',
-  },
-  {
-    id: '4',
-    region: 'International Markets',
-    description: 'Export capabilities to Europe, Asia, and other continents for global clients.',
-  },
+  // {
+  //   id: '3',
+  //   region: 'Southern Africa',
+  //   description: 'Strategic partnerships in South Africa, Botswana, and Zimbabwe for regional supply.',
+  // },
+  // {
+  //   id: '4',
+  //   region: 'International Markets',
+  //   description: 'Export capabilities to Europe, Asia, and other continents for global clients.',
+  // },
 ]
 
 export interface CompanyInfo {
@@ -105,16 +105,16 @@ export const companyInfo: CompanyInfo = {
   foundedYear: 2010,
   workingHours: {
     weekdays: 'Monday - Friday: 8:00 AM - 5:00 PM',
-    weekends: 'Saturday: 9:00 AM - 1:00 PM (By appointment)',
+    weekends: 'Saturday: 8:00 AM - 5:00 PM | Sunday: Closed',
   },
   contact: {
-    email: 'info@clemaster.com',
-    phone: '+250 788 123 456',
-    address: 'Industrial Park Zone, Kigali',
+    email: 'info@clemasterindustries.com',
+    phone: '+250 790 137 658',
+    address: 'Industrial Park Zone, Rwamagana',
     country: 'Rwanda',
   },
   capacities: {
-    dailyProduction: '50,000+ liters per day',
+    dailyProduction: '50,000+ packages per day',
     employeeCount: '150+ trained professionals',
     certifications: ['ISO 9001:2015', 'ISO 14001:2015', 'USDA Approved', 'FDA Registered'],
   },

@@ -13,11 +13,10 @@ export const metadata: Metadata = {
   title: 'Clemaster Industries | Professional Cleaning Solutions',
   description:
     'Leading manufacturer of professional-grade cleaning and hygienic products serving businesses worldwide. Quality, innovation, and sustainability.',
-  generator: 'v0.app',
   openGraph: {
     title: 'Clemaster Industries | Professional Cleaning Solutions',
     description: 'Leading manufacturer of professional-grade cleaning and hygienic products.',
-    url: 'https://clemaster.com',
+    url: 'https://clemasterindustries.com',
     siteName: 'Clemaster Industries',
     images: [
       {

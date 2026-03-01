@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Professional Cleaning Products | Clemaster',
     description: 'Browse professional-grade cleaning and hygiene products.',
-    url: 'https://clemaster.com/products',
+    url: 'https://clemasterindustries.com/products',
     images: [
       {
         url: '/images/hero-cleaning.jpg',
@@ -26,7 +26,7 @@ export default function ProductsPage() {
   return (
     <>
       {/* Page Header */}
-      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-primary/5 to-transparent">
+      <section className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-primary/5 to-transparent">
         <div className="container mx-auto max-w-6xl">
           <SectionHeading title="Our Product Catalog" description="Browse our complete range of professional cleaning and hygiene solutions." />
         </div>

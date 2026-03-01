@@ -3,13 +3,14 @@
 import Link from 'next/link'
 import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, Youtube } from 'lucide-react'
 import { defaultSocialMediaAccounts } from '@/lib/data/socialMedia'
+import Image from 'next/image'
 
 const companyInfo = {
   name: 'Clemaster Industries',
   legalName: 'Value Platform Industrial Rwanda Ltd',
   domain: 'clemasterindustries.com',
   email: 'info@clemasterindustries.com',
-  phone: '+250788123456',
+  phone: '+250790137658',
   address: 'Kigali, Rwanda',
   motto: 'Excellence in Cleaning, Innovation in Hygiene',
 }
@@ -55,10 +56,15 @@ export function Footer() {
           {/* Brand Section */}
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-primary text-lg font-bold">
-                C
+              <div className="relative w-20 h-16 text-white">
+                <Image
+                  src="/images/logo.PNG"
+                  alt="Clemaster Logo"
+                  fill
+                  className="object-contain"
+                />
               </div>
-              <span className="text-xl font-bold">Clemaster</span>
+              {/* <span className="text-xl font-bold">Clemaster</span> */}
             </div>
             <p className="text-sm text-white/80 italic">{companyInfo.motto}</p>
             <p className="text-sm text-white/80">
