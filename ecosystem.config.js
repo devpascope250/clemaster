@@ -2,16 +2,12 @@ module.exports = {
   apps: [
     {
       name: "Clemaster",
-      script: "npm",
-      args: "start",
+      script: "node_modules/next/dist/bin/next",
+      args: "start -p 3500",
       cwd: `${process.env.HOME}/clemaster`,
       env: {
         NODE_ENV: "production",
-        PORT: 3500,
       },
-      watch: false,
-      autorestart: true,
-      max_memory_restart: "500M",
     },
   ],
 };
