@@ -2,62 +2,79 @@ export interface TeamMember {
   id: string
   name: string
   position: string
-  email: string
-  phone: string
-  linkedin: string
-  image: string
-  bio: string
+  email?: string
+  phone?: string
+  linkedin?: string
+  image?: string
+  bio?: string
 }
 
 export const teamMembers: TeamMember[] = [
   {
     id: '1',
-    name: 'James Mwangi',
-    position: 'Chief Executive Officer',
-    email: 'james@clemaster.com',
-    phone: '+250788123456',
-    linkedin: 'https://linkedin.com',
-    image: '/images/hero-cleaning.jpg',
-    bio: 'Industry veteran with 15+ years of experience in manufacturing and business development.',
+    name: 'Jiang Liwei',
+    position: 'Chair Person',
   },
   {
     id: '2',
-    name: 'Grace Njeri',
-    position: 'Head of Operations',
-    email: 'grace@clemaster.com',
-    phone: '+250788123457',
-    linkedin: 'https://linkedin.com',
-    image: '/images/hero-cleaning.jpg',
-    bio: 'Passionate about process optimization and maintaining high production standards.',
+    name: 'Liu Yanfeng',
+    position: 'General Manager',
   },
   {
     id: '3',
-    name: 'Peter Kamau',
-    position: 'Product Development Manager',
-    email: 'peter@clemaster.com',
-    phone: '+250788123458',
-    linkedin: 'https://linkedin.com',
-    image: '/images/hero-cleaning.jpg',
-    bio: 'Chemist and innovator focused on creating sustainable and effective cleaning solutions.',
+    name: 'Zhang Jinfeng',
+    position: 'Logistics & Supply Chain',
+  },{
+    id: '14',
+    name: 'Mr Tang',
+    position: 'Engineering Construction Department:',
   },
   {
     id: '4',
-    name: 'Amara Okafor',
-    position: 'Head of Sales & Marketing',
-    email: 'amara@clemaster.com',
-    phone: '+250788123459',
-    linkedin: 'https://linkedin.com',
-    image: '/images/hero-cleaning.jpg',
-    bio: 'Strategic thinker with expertise in market expansion and brand positioning.',
+    name: 'KAMANA Claude',
+    position: 'Supply Chain Assistant',
   },
   {
     id: '5',
-    name: 'David Kipchoge',
-    position: 'Quality Assurance Lead',
-    email: 'david@clemaster.com',
-    phone: '+250788123460',
-    linkedin: 'https://linkedin.com',
-    image: '/images/hero-cleaning.jpg',
-    bio: 'Dedicated to ensuring every product meets international quality and safety standards.',
+    name: 'Zhai Lubing',
+    position: 'Sales Manager',
+  },{
+    id: '6',
+    name: 'UWAMAHORO Alphonsine',
+    position: 'Sales Manager assistant',
   },
+  {
+    id: '7',
+    name: 'Xiang Wu',
+    position: 'Marketing Manager',
+  },
+  {
+    id: '8',
+    name: 'Xu manchu',
+    position: 'Finance Manager',
+  }
+  ,{
+    id: '9',
+    name: 'TUMUKUNDE Blandine',
+    position: 'Finance Assistant',
+  },{
+    id: '10',
+    name: 'NIYIGENA Jeanne Baptiste',
+    position: 'HR Department',
+  },
+  {
+    id: '11',
+    name: 'Ye Shunsong',
+    position: 'Factory Manager',
+  },
+  {
+    id: '12',
+    name: 'Chai pei zhao',
+    position: 'Warehouse Manager',
+  },
+  {
+    id: '13',
+    name: 'DUKUNDIMANA Enock',
+    position: 'Warehouse assistants',
+  }
 ]

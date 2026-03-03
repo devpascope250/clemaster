@@ -206,20 +206,25 @@ export default function ContactPage() {
 
       {/* Map Placeholder */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-muted/50">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-2xl font-bold text-foreground mb-6">Visit Us</h2>
-          <div className="w-full h-96 rounded-lg border border-border bg-muted flex items-center justify-center">
-            <div className="text-center">
-              <MapPin size={48} className="text-muted-foreground mx-auto mb-4" />
-              <p className="text-muted-foreground">
-                Map placeholder: {companyInfo.contact.address}
-                <br />
-                {companyInfo.contact.country}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+  <div className="container mx-auto max-w-6xl">
+    <h2 className="text-2xl font-bold text-foreground mb-6">Visit Us</h2>
+    <div className="w-full h-96 rounded-lg border border-border bg-muted overflow-hidden">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d255202.26987698404!2d30.05892870061029!3d-1.938299136397246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19db455b99d13143%3A0x3217581f1823376b!2sValue%20Platform%20Industrial%20Rwanda%20Ltd!5e0!3m2!1sen!2srw!4v1772496702197!5m2!1sen!2srw"
+        width="100%"
+        height="100%"
+        style={{ border: 0 }}
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        className="w-full h-full"
+        allowFullScreen
+      ></iframe>
+    </div>
+    <p className="text-muted-foreground mt-4">
+      {companyInfo.contact.address}, {companyInfo.contact.country}
+    </p>
+  </div>
+</section>
     </>
   )
 }

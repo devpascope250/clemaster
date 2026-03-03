@@ -37,7 +37,7 @@ export function TeamMemberCardCompact({ member }: Props) {
       <p className="text-xs text-muted-foreground mb-4">{member.position}</p>
 
       {/* Contact Icons */}
-      <div className="flex gap-3 justify-center">
+      {/* <div className="flex gap-3 justify-center">
         <a
           href={`mailto:${member.email}`}
           title={`Email: ${member.email}`}
@@ -61,7 +61,7 @@ export function TeamMemberCardCompact({ member }: Props) {
         >
           <Linkedin size={18} />
         </a>
-      </div>
+      </div> */}
     </div>
   )
 }
