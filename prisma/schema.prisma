@@ -23,10 +23,11 @@ model Messages {
   id                  String               @id @default(uuid())
   name                String
   email               String
+  phone               String
   subject             String
-  message             String
+  message             String               @db.Text  
   date                DateTime              @default(now())
-  read                Boolean               @default(FALSE)
+  read                Boolean               @default(false)
 }
 
 
@@ -43,8 +44,8 @@ model blogs {
   id                  String               @id @default(uuid())
   slug                String
   title               String
-  excerpt             String?
-  content             String?
+  excerpt             String
+  content             String              @db.Text  
   author              String
   date                DateTime              @default(now())
   image               String

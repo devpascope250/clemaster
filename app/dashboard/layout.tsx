@@ -1,8 +1,8 @@
 'use client'
 
-import { ProtectedRoute } from '@/components/ProtectedRoute'
 import { DashboardSidebar } from '@/components/dashboard/DashboardSidebar'
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader'
+import { AuthProvider } from '@/context/AuthContext'
 
 export default function DashboardLayout({
   children,
@@ -10,7 +10,7 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <ProtectedRoute>
+    <AuthProvider>
       <div className="flex h-full">
         <DashboardSidebar />
         <div className="flex-1 flex flex-col overflow-hidden">
@@ -20,6 +20,6 @@ export default function DashboardLayout({
           </main>
         </div>
       </div>
-    </ProtectedRoute>
+    </AuthProvider>
   )
 }

@@ -5,7 +5,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react'
-
+import { useFormik} from 'formik'
+import * as Yup from 'yup'
 export default function LoginPage() {
   const router = useRouter()
   const [email, setEmail] = useState('')
@@ -14,47 +15,66 @@ export default function LoginPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
-    setLoading(true)
+  const formik = useFormik({
+    initialValues: {
+      email: '',  
+      password: '',
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email('Invalid email address').required('Required'),
+      password: Yup.string().required('Required'),
+    }),
+    onSubmit: async(values) => {
+      try{
+        setError('')
+        setLoading(true)
+        await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify(values),
+        }).then(res => {
+          if (!res.ok) {
+            throw new Error('Login failed')
+          }
+          return res.json()
+        }).then(data => {
+          console.log('Login response:', data)
+          localStorage.setItem('user', JSON.stringify(data.user))
+          router.push('/dashboard')
+        }).catch(error => {
+          setError(error.message || 'Login failed')
+        }).finally(() => {
+          setLoading(false)
+        })
+      } catch (error) {
+        const err = error as Error
+        setError(err.message || 'An error occurred during login')
+        setLoading(false)
+      }
+    },
+  })
 
-    // Mock authentication - in production, this would call your API
-    if (email && password) {
-      // Simulate API call
-      setTimeout(() => {
-        const user = {
-          id: '1',
-          email,
-          name: email.split('@')[0],
-          role: email.includes('admin') ? 'admin' : 'user',
-        }
-        localStorage.setItem('user', JSON.stringify(user))
-        router.push('/dashboard')
-      }, 500)
-    } else {
-      setError('Please fill in all fields')
-      setLoading(false)
-    }
-  }
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-primary/5 to-transparent">
       <div className="w-full max-w-md">
         {/* Logo & Title */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 font-bold text-2xl text-primary mb-4">
+          {/* <Link href="/" className="inline-flex items-center gap-2 font-bold text-2xl text-primary mb-4">
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white text-lg font-bold">
               C
             </div>
             <span>Clemaster</span>
-          </Link>
+          </Link> */}
           <h1 className="text-3xl font-bold text-foreground">Welcome Back</h1>
           <p className="text-muted-foreground mt-2">Sign in to your account to continue</p>
         </div>
 
         {/* Login Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={formik.handleSubmit} className="space-y-4">
           {/* Error Message */}
           {error && (
             <div className="rounded-lg bg-red-50 border border-red-200 text-red-800 px-4 py-3 text-sm">
@@ -72,12 +92,12 @@ export default function LoginPage() {
               <input
                 type="email"
                 id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={formik.values.email}
+                onChange={formik.handleChange}
                 placeholder="you@example.com"
-                className="w-full pl-12 pr-4 py-3 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                required
+                className={`w-full pl-12 pr-4 py-3 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary ${formik.touched.email && formik.errors.email ? 'border-red-500' : ''}`}
               />
+             
             </div>
           </div>
 
@@ -91,11 +111,10 @@ export default function LoginPage() {
               <input
                 type={showPassword ? 'text' : 'password'}
                 id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formik.values.password}
+                onChange={formik.handleChange}
                 placeholder="••••••••"
-                className="w-full pl-12 pr-12 py-3 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                required
+                className={`w-full pl-12 pr-10 py-3 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary ${formik.touched.password && formik.errors.password ? 'border-red-500' : ''}`}
               />
               <button
                 type="button"
@@ -108,7 +127,7 @@ export default function LoginPage() {
           </div>
 
           {/* Remember & Forgot */}
-          <div className="flex items-center justify-between text-sm">
+          {/* <div className="flex items-center justify-between text-sm">
             <label className="flex items-center gap-2 cursor-pointer">
               <input type="checkbox" className="rounded border-border" />
               <span className="text-muted-foreground">Remember me</span>
@@ -116,7 +135,7 @@ export default function LoginPage() {
             <a href="#" className="text-primary hover:text-primary/80 font-medium">
               Forgot password?
             </a>
-          </div>
+          </div> */}
 
           {/* Submit Button */}
           <Button
@@ -129,11 +148,11 @@ export default function LoginPage() {
         </form>
 
         {/* Demo Credentials */}
-        <div className="mt-6 rounded-lg border border-border bg-card p-4 text-sm text-muted-foreground">
+        {/* <div className="mt-6 rounded-lg border border-border bg-card p-4 text-sm text-muted-foreground">
           <p className="font-semibold text-foreground mb-2">Demo Credentials:</p>
           <p>Email: admin@clemaster.com</p>
           <p>Password: any password</p>
-        </div>
+        </div> */}
 
         {/* Sign Up Link */}
         <p className="text-center text-muted-foreground mt-6">

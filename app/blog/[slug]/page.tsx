@@ -1,34 +1,79 @@
+"use client"
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { BlogCard } from '@/components/BlogCard'
-import { blogPosts } from '@/lib/data/blogs'
 import { ArrowLeft, ArrowRight, Clock, User } from 'lucide-react'
+import { useParams } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
+import { blogs } from '@prisma/client'
 
-interface BlogPostPageProps {
-  params: Promise<{
-    slug: string
-  }>
-}
+export default function BlogPostPage() {
+  const { slug } = useParams()
+  const [blogPosts, setBlogPosts] = useState<blogs[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug)
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        setIsLoading(true)
+        const response = await fetch(`/api/blog-read`);
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch blog posts');
+        }
+        
+        const data = await response.json();
+        setBlogPosts(data);
+        setError(null);
+      } catch (error) {
+        console.error('Error fetching blog post:', error);
+        setError('Failed to load blog posts. Please try again later.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchBlog();
+  }, []); // Remove slug from dependencies since we're fetching all posts
 
-  if (!post) {
-    notFound()
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading blog post...</p>
+        </div>
+      </div>
+    );
   }
 
-  // Get related posts (same category, different post)
-  const relatedPosts = blogPosts
-    .filter((p) => p.category === post.category && p.id !== post.id)
-    .slice(0, 3)
+  // Show error state
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <p className="text-red-500 mb-4">{error}</p>
+          <Link href="/blog">
+            <Button variant="outline">Back to Blog</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Find the post after data is loaded
+  const post = blogPosts?.find((p) => p.slug === slug);
+  // If post doesn't exist after loading, show 404
+  if (!post) {
+    notFound();
+  }
 
   // Get previous and next posts
-  const postIndex = blogPosts.findIndex((p) => p.id === post.id)
-  const prevPost = postIndex > 0 ? blogPosts[postIndex - 1] : null
-  const nextPost = postIndex < blogPosts.length - 1 ? blogPosts[postIndex + 1] : null
+  const postIndex = blogPosts.findIndex((p) => p.id === post.id);
+  const prevPost = postIndex > 0 ? blogPosts[postIndex - 1] : null;
+  const nextPost = postIndex < blogPosts.length - 1 ? blogPosts[postIndex + 1] : null;
 
   return (
     <>
@@ -41,7 +86,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </Link>
 
           <div className="space-y-4">
-            <span className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-semibold">{post.category}</span>
             <h1 className="text-4xl sm:text-5xl font-bold text-foreground text-balance">{post.title}</h1>
 
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 text-muted-foreground pt-4">
@@ -53,37 +97,37 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <Clock size={18} />
                 <span>{new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
               </div>
-              <span>{post.readTime} min read</span>
             </div>
           </div>
         </div>
       </article>
 
       {/* Featured Image */}
-      <div className="relative h-96 sm:h-[500px] w-full bg-muted">
-        <Image src={post.image} alt={post.title} fill sizes="100vw" className="object-cover" />
-      </div>
+      {post.image && (
+        <div className="relative h-96 sm:h-[500px] w-full bg-muted">
+          <Image 
+            src={post.image} 
+            alt={post.title} 
+            fill 
+            sizes="100vw" 
+            className="object-cover" 
+            unoptimized 
+          />
+        </div>
+      )}
 
       {/* Article Content */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-4xl">
           <div className="prose prose-invert max-w-none text-foreground">
-            <p className="text-lg text-muted-foreground mb-6">{post.excerpt}</p>
+            {post.excerpt && (
+              <p className="text-lg text-muted-foreground mb-6">{post.excerpt}</p>
+            )}
 
-            {/* Article Body - Simulated Content */}
+            {/* Article Body */}
             <div className="space-y-6 mb-12">
               <p>{post.content}</p>
-              <p>
-                This is the main content area of the blog post. In a production environment, this would be dynamically loaded from your CMS or database.
-                The content would typically include detailed information, best practices, insights, and recommendations related to the article topic.
-              </p>
-              <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">Key Takeaways</h2>
-              <ul className="list-disc list-inside space-y-2">
-                <li>Professional cleaning requires the right products and techniques</li>
-                <li>Quality assurance is essential in the cleaning industry</li>
-                <li>Sustainability and effectiveness can coexist</li>
-                <li>Proper training and protocols ensure optimal results</li>
-              </ul>
+              {/* You might want to remove this hardcoded content or make it dynamic */}
             </div>
           </div>
 
@@ -124,20 +168,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </div>
       </section>
-
-      {/* Related Posts */}
-      {relatedPosts.length > 0 && (
-        <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-muted/50">
-          <div className="container mx-auto max-w-6xl">
-            <h2 className="text-3xl font-bold text-foreground mb-8">Related Articles</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {relatedPosts.map((relatedPost) => (
-                <BlogCard key={relatedPost.id} post={relatedPost} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
     </>
   )
 }

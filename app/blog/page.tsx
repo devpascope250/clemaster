@@ -1,28 +1,26 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 import { BlogCard } from '@/components/BlogCard'
 import { SectionHeading } from '@/components/SectionHeading'
-import { blogPosts } from '@/lib/data/blogs'
 import { Search } from 'lucide-react'
+import { blogs } from '@prisma/client'
 
 export default function BlogPage() {
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('all')
   const [currentPage, setCurrentPage] = useState(1)
-
-  const categories = ['all', ...new Set(blogPosts.map((p) => p.category))]
+  const [blogPosts, setBlogPosts] = useState<blogs[]>([]) // You would fetch this from your API in a real app
+  const [isLoading, setIsLoading] = useState(true)
   const postsPerPage = 6
 
   const filteredPosts = useMemo(() => {
     return blogPosts.filter((post) => {
       const matchesSearch =
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
-      const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory
-      return matchesSearch && matchesCategory
+        post?.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
+      return matchesSearch 
     })
-  }, [searchTerm, selectedCategory])
+  }, [searchTerm, blogPosts])
 
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage)
   const paginatedPosts = filteredPosts.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
@@ -31,6 +29,36 @@ export default function BlogPage() {
     setCurrentPage(Math.max(1, Math.min(page, totalPages)))
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+  const fetchBlogs = async () => {
+    try {
+      const response = await fetch('/api/blog-read');
+      const data = await response.json();
+      setBlogPosts(data);
+    } catch (error) {
+      console.error('Error fetching blog posts:', error);
+      // Use mock data if API fails
+      setBlogPosts([]);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  React.useEffect(() => {
+    fetchBlogs()
+  }, [])
+
+
+   if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading blog post...</p>
+        </div>
+      </div>
+    );
+  }
+
 
   return (
     <>
@@ -63,27 +91,6 @@ export default function BlogPage() {
               />
             </div>
           </div>
-
-          {/* Category Filter */}
-          <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => {
-                  setSelectedCategory(category)
-                  setCurrentPage(1)
-                }}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors capitalize ${
-                  selectedCategory === category
-                    ? 'bg-primary text-white'
-                    : 'bg-muted text-foreground hover:bg-muted/80'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-
           {/* Results Count */}
           <p className="text-sm text-muted-foreground mt-4">
             Showing {paginatedPosts.length} of {filteredPosts.length} post{filteredPosts.length !== 1 ? 's' : ''}

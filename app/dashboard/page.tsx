@@ -1,23 +1,48 @@
 'use client'
-
-import { getCurrentUser, isAdmin } from '@/lib/auth'
 import { StatCard } from '@/components/StatCard'
-import { BarChart3, FileText, MessageSquare, Users } from 'lucide-react'
-
+import { BarChart3, FileText, MessageSquare, Share2Icon, Users } from 'lucide-react'
+import { useAuth } from '@/hooks/useAuth'
+import { useEffect, useState } from 'react'
+interface Stats {
+  platforms: number;
+  messages: number;
+  blogs: number;
+  users: number;
+}
 export default function DashboardPage() {
-  const user = typeof window !== 'undefined' ? getCurrentUser() : null
+  const { user} = useAuth()
+  const [statsData, setStats] = useState<Stats>();
+  const [isLoading, setIsLoading] = useState<Boolean>(true);
 
+  const fetchStats = async () => {
+    setIsLoading(true)
+      try {
+        const response = await fetch('/api/stats');
+        if (response.ok) {        const data = await response.json();
+          setStats(data);
+        } else {
+          console.error('Failed to fetch social media accounts');
+        }
+      } catch (error) {
+        console.error('Error fetching social media accounts:', error);
+      }finally{
+        setIsLoading(false);
+      }
+    }
+    useEffect(()=> {
+      fetchStats();
+    }, [])
   const stats = [
     {
       icon: <FileText size={32} />,
       label: 'Total Blog Posts',
-      value: 24,
+      value: statsData?.blogs ?? 0,
       description: 'Published articles',
     },
     {
       icon: <MessageSquare size={32} />,
       label: 'Messages Received',
-      value: 147,
+      value: statsData?.messages ?? 0,
       description: 'This month',
     },
   ]
@@ -26,24 +51,34 @@ export default function DashboardPage() {
     {
       icon: <Users size={32} />,
       label: 'Total Users',
-      value: 42,
+      value: statsData?.users ?? 0,
       description: 'Active users',
     },
     {
-      icon: <BarChart3 size={32} />,
-      label: 'Page Views',
-      value: '12.5K',
-      description: 'This month',
+      icon: <Share2Icon />,
+      label: 'Total Social',
+      value: statsData?.platforms ?? 0,
+      description: 'All social Media',
     },
-  ]
+  ];
 
-  const allStats = isAdmin(user) ? [...stats, ...adminStats] : stats
+  const allStats = user?.role === "admin" ? [...stats, ...adminStats] : stats
 
+     if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading blog post...</p>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="space-y-8">
       {/* Welcome Section */}
       <div>
-        <h1 className="text-3xl font-bold text-foreground">Welcome back, {user?.name}!</h1>
+        <h1 className="text-3xl font-bold text-foreground">Welcome back, {user?.role.toLocaleUpperCase()}!</h1>
         <p className="text-muted-foreground mt-2 capitalize">You are logged in as {user?.role}</p>
       </div>
 
@@ -76,7 +111,7 @@ export default function DashboardPage() {
               <p className="text-sm text-muted-foreground">Check contact form submissions</p>
             </div>
           </a>
-          {isAdmin(user) && (
+          {user?.role === "admin" && (
             <>
               <a
                 href="/dashboard/users"

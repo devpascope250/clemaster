@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
@@ -8,11 +8,16 @@ import { BlogImageUpload } from '@/components/BlogImageUpload'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useRouter } from 'next/navigation'
-export default function CreateBlogPage() {
-  const router = useRouter();
+import { useParams } from 'next/navigation'
+export default function EditBlogPage() {
+    const { id } = useParams();   
+    const router = useRouter(); 
+
   const [images, setImages] = useState<string>('')
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')
+
+
 
 const formik = useFormik({
   initialValues: {
@@ -29,15 +34,13 @@ const formik = useFormik({
     author: Yup.string().required('Author is required'),
   }),
   onSubmit: async(values) => {
-    if (!images) {  // Changed from images.length === 0
-      setError('A featured image is required')
-      return
-    }
-    let newSlug = values.title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-')
+    let newSlug = values.title.toLowerCase()
+        .replace(/[^\w\s-]/g, '') 
+        .replace(/\s+/g, '-') 
     values.slug = newSlug
     try{
-      await fetch('/api/blogs', {
-        method: 'POST',
+      await fetch(`/api/blogs/${id}`, {
+        method: 'PUT',
         body: JSON.stringify({ ...values, image: images }), // Changed from images to image
       })
       setSubmitted(true)
@@ -46,17 +49,39 @@ const formik = useFormik({
         formik.resetForm()
         setImages('')  // Reset to empty string
         setError('')
+        router.push('/dashboard/blogs')
       }, 2000)
-      router.push('/dashboard/blogs')
+
     } catch (error) {
-      console.error('Error creating blog post:', error);
-      setError('Failed to create blog post. Please try again.');
+      console.error('Error updating blog post:', error);
+      setError('Failed to update blog post. Please try again.');
       if (error instanceof Error) {
         setError(error.message);
       }
     }
   }
 })
+
+
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const response = await fetch(`/api/blogs/${id}`);
+        const data = await response.json();
+        formik.setValues({
+            title: data.title,
+            slug: data.slug,
+            excerpt: data.excerpt,
+            content: data.content,
+            author: data.author,
+        });
+        // setImages(data.image);
+      } catch (error) {
+        console.error('Error fetching blog post:', error);
+      }
+    };
+    fetchBlog();
+  }, [id]);
 
   return (
     <div className="space-y-6">

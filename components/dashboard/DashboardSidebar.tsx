@@ -2,14 +2,15 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { getCurrentUser, isAdmin, isEditor } from '@/lib/auth'
 import { BarChart3, Users, MessageSquare, FileText, Plus, Share2 } from 'lucide-react'
-import { useMemo } from 'react'
-
+import React, { useMemo } from 'react'
+import { useAuth } from '@/hooks/useAuth'
 export function DashboardSidebar() {
   const pathname = usePathname()
-  const user = typeof window !== 'undefined' ? getCurrentUser() : null
-
+  const { user, checkAuth, isLoading } = useAuth()
+React.useEffect(() => {
+    checkAuth()
+  }, [])
   const menuItems = useMemo(() => {
     const baseItems = [
       {
@@ -20,7 +21,7 @@ export function DashboardSidebar() {
     ]
 
     // Admin-only items
-    if (isAdmin(user)) {
+    if (user?.role === "admin") {
       baseItems.push({
         label: 'Users',
         href: '/dashboard/users',
@@ -39,7 +40,7 @@ export function DashboardSidebar() {
     }
 
     // Editor and Admin items
-    if (isEditor(user)) {
+    if (user?.role === "editor" || user?.role === "admin") {
       baseItems.push({
         label: 'Blog Posts',
         href: '/dashboard/blogs',
@@ -50,6 +51,13 @@ export function DashboardSidebar() {
     return baseItems
   }, [user])
 
+  if (isLoading) {
+    return (
+      <aside className="hidden md:flex w-64 bg-card border-r border-border flex-col items-center justify-center">
+        <p className="text-muted-foreground">Loading...</p>
+      </aside>
+    )
+  }
   return (
     <aside className="hidden md:flex w-64 bg-card border-r border-border flex-col">
       {/* Logo */}
@@ -85,7 +93,7 @@ export function DashboardSidebar() {
         })}
 
         {/* Create Blog Link */}
-        {isEditor(user) && (
+        {user?.role === "editor" && (
           <Link
             href="/dashboard/blogs/create"
             className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors ${

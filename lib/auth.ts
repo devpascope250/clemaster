@@ -1,35 +1,130 @@
-export interface User {
-  id: string
-  email: string
-  name: string
-  role: 'admin' | 'editor' | 'user'
+// lib/auth.ts
+import { serialize } from 'cookie'
+import bcrypt from 'bcryptjs'
+import { NextResponse } from 'next/server'
+import { EncryptJWT, jwtDecrypt, JWTPayload } from 'jose'
+
+// Constants
+const SECRET_KEY = process.env.JWT_SECRET
+const ACCESS_MAX_AGE = 60 * 60 * 24 * 2 // 2 days for encrypted JWT
+const GENERAL_MAX_AGE = 60 * 60 * 24 * 365 // 1 year for general JWT
+const COOKIE_NAME = 'access_token'
+
+// Validate environment variable
+if (!SECRET_KEY) {
+  throw new Error('JWT_SECRET must be defined')
 }
 
-export function getCurrentUser(): User | null {
-  if (typeof window === 'undefined') return null
+// Generate AES encryption key
+const secret = Buffer.from(SECRET_KEY, 'hex')
 
-  const userStr = localStorage.getItem('user')
-  if (!userStr) return null
+export async function hashPassword(password: string) {
+  const salt = await bcrypt.genSalt(10)
+  return await bcrypt.hash(password, salt)
+}
 
+export async function verifyPassword(password: string, hashedPassword: string) {
+  return await bcrypt.compare(password, hashedPassword)
+}
+
+export async function generateEncryptedToken(user: UserAuthPayload) {
+  return await new EncryptJWT({ user })
+    .setProtectedHeader({ alg: 'dir', enc: 'A256GCM' })
+    .setIssuedAt()
+    .setExpirationTime(`${ACCESS_MAX_AGE}s`)
+    .encrypt(secret)
+}
+
+export async function verifyEncryptedToken(token: string) {
   try {
-    return JSON.parse(userStr)
-  } catch {
+    const { payload } = await jwtDecrypt(token, secret)
+    return payload as JWTPayload & { user: UserAuthPayload }
+  } catch (error) {
+    console.log('Token verification error:', error)
     return null
   }
 }
 
-export function setUser(user: User) {
-  localStorage.setItem('user', JSON.stringify(user))
+export function setEncryptedAuthCookie(response: NextResponse, token: string) {
+  const cookie = serialize(COOKIE_NAME, token, {
+    maxAge: ACCESS_MAX_AGE,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    path: '/',
+    sameSite: 'lax',
+    domain: process.env.NODE_ENV === 'production' 
+      ? process.env.COOKIE_DOMAIN 
+      : undefined
+  })
+
+  // For NextResponse, we need to set the header directly
+  response.headers.append('Set-Cookie', cookie)
+  return response
 }
 
-export function logout() {
-  localStorage.removeItem('user')
+export function clearAuthCookies(response: NextResponse) {
+  const cookies = [
+    serialize(COOKIE_NAME, '', {
+      maxAge: -1,
+      path: '/',
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      domain: process.env.NODE_ENV === 'production' 
+        ? process.env.COOKIE_DOMAIN 
+        : undefined
+    }),
+    serialize('deviceId', '', {
+      maxAge: -1,
+      path: '/',
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      domain: process.env.NODE_ENV === 'production' 
+        ? process.env.COOKIE_DOMAIN 
+        : undefined
+    })
+  ]
+
+  // Set multiple cookies in NextResponse
+  cookies.forEach(cookie => {
+    response.headers.append('Set-Cookie', cookie)
+  })
+  return response
 }
 
-export function isAdmin(user: User | null): boolean {
-  return user?.role === 'admin'
+export async function generalGenerateToken(user: UserAuthPayload) {
+  return await new EncryptJWT({ user })
+    .setProtectedHeader({ alg: 'dir', enc: 'A256GCM' })
+    .setIssuedAt()
+    .setExpirationTime(`${GENERAL_MAX_AGE}s`)
+    .encrypt(secret)
+
 }
 
-export function isEditor(user: User | null): boolean {
-  return user?.role === 'editor' || user?.role === 'admin'
+// Optional: Keep the old functions for backward compatibility or remove them
+export async function generateToken(user: UserAuthPayload) {
+  return await generateEncryptedToken(user)
+}
+
+export function setTokenCookieApp(response: NextResponse, token: string) {
+  return setEncryptedAuthCookie(response, token)
+}
+
+export function clearTokenCookie(response: NextResponse) {
+  return clearAuthCookies(response)
+}
+
+export async function verifyToken(token: string) {
+  const payload = await verifyEncryptedToken(token)
+  if (payload && payload.user) {
+    return payload.user as UserAuthPayload
+  }
+  return null
+}
+
+// Type definitions
+interface UserAuthPayload {
+  id: string
+  role: string
 }

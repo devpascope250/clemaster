@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Clock } from 'lucide-react'
-import { BlogPost } from '@/lib/data/blogs'
+import { blogs } from '@prisma/client'
 
 interface BlogCardProps {
-  post: BlogPost
+  post: blogs
 }
 
 export function BlogCard({ post }: BlogCardProps) {
@@ -17,14 +17,6 @@ export function BlogCard({ post }: BlogCardProps) {
 
       {/* Content Container */}
       <div className="flex flex-col flex-1 p-4 gap-3">
-        {/* Meta Info */}
-        <div className="flex items-center justify-between text-xs text-muted-foreground">
-          <span className="font-semibold text-primary uppercase">{post.category}</span>
-          <div className="flex items-center gap-1">
-            <Clock size={14} />
-            <span>{post.readTime} min read</span>
-          </div>
-        </div>
 
         {/* Title */}
         <h3 className="text-lg font-bold text-foreground line-clamp-2">{post.title}</h3>
@@ -36,7 +28,7 @@ export function BlogCard({ post }: BlogCardProps) {
         <div className="flex items-center justify-between pt-2 border-t border-border">
           <div className="text-xs text-muted-foreground">
             <p className="font-semibold text-foreground">{post.author}</p>
-            <p>{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+            <p>{new Date(post.date).toLocaleTimeString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
           </div>
           <Link href={`/blog/${post.slug}`} className="text-primary hover:text-primary/80 transition-colors">
             <ArrowRight size={18} />

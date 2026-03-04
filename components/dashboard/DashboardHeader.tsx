@@ -3,13 +3,12 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { getCurrentUser, logout } from '@/lib/auth'
 import { Button } from '@/components/ui/button'
 import { LogOut, User, ChevronDown } from 'lucide-react'
-
+import { useAuth } from '@/hooks/useAuth'
 export function DashboardHeader() {
   const router = useRouter()
-  const user = typeof window !== 'undefined' ? getCurrentUser() : null
+  const { user, logout } = useAuth()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
   const handleLogout = () => {

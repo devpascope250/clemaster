@@ -1,30 +1,46 @@
 'use client'
-
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Plus, Edit2, Trash2, Eye, EyeOff, ExternalLink } from 'lucide-react'
-import { SocialMediaAccount, defaultSocialMediaAccounts, platformOptions } from '@/lib/data/socialMedia'
-import { getCurrentUser, isAdmin } from '@/lib/auth'
-import Link from 'next/link'
-
 interface FormData {
   platform: 'Facebook' | 'Instagram' | 'LinkedIn' | 'Twitter' | 'YouTube'
   url: string
   status: 'active' | 'inactive'
 }
+import { useEffect, useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Plus, Edit2, Trash2, Eye, EyeOff, ExternalLink } from 'lucide-react'
+import { SocialMediaAccount, defaultSocialMediaAccounts, platformOptions } from '@/lib/data/socialMedia'
+import { useAuth } from '@/hooks/useAuth'
+
 
 export default function SocialMediaPage() {
-  const [accounts, setAccounts] = useState<SocialMediaAccount[]>(defaultSocialMediaAccounts)
+  const [accounts, setAccounts] = useState<SocialMediaAccount[]>([])
   const [showForm, setShowForm] = useState(false)
+  const { user } = useAuth()
   const [editingId, setEditingId] = useState<string | null>(null)
+  const [isLoadingPlatform, setIsLoadingPlatform] = useState<Boolean>(true);
   const [formData, setFormData] = useState<FormData>({
     platform: 'Facebook',
     url: '',
     status: 'active',
   })
-
-  const user = typeof window !== 'undefined' ? getCurrentUser() : null
-  const canEdit = isAdmin(user)
+  const canEdit = user?.role === 'admin' || user?.role === 'editor';
+  const fetchAccounts = async () => {
+    try {
+      const response = await fetch('/api/platform');
+      if (response.ok) {
+        const data = await response.json();
+        setAccounts(data);
+      } else {
+        console.error('Failed to fetch social media accounts');
+      }
+    } catch (error) {
+      console.error('Error fetching social media accounts:', error);
+    }finally{
+      setIsLoadingPlatform(false)
+    }
+  }
+  useEffect(() => {
+    fetchAccounts();
+  }, [])
 
   const handleAddClick = () => {
     setEditingId(null)
@@ -42,24 +58,34 @@ export default function SocialMediaPage() {
     setShowForm(true)
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!formData.url) return
 
     if (editingId) {
+      await fetch(`/api/platform/${editingId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
       setAccounts(
         accounts.map((acc) =>
           acc.id === editingId
             ? {
-                ...acc,
-                platform: formData.platform,
-                url: formData.url,
-                status: formData.status,
-              }
+              ...acc,
+              platform: formData.platform,
+              url: formData.url,
+              status: formData.status,
+            }
             : acc
         )
       )
     } else {
+      await fetch('/api/platform', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
       setAccounts([
         ...accounts,
         {
@@ -77,13 +103,22 @@ export default function SocialMediaPage() {
     setFormData({ platform: 'Facebook', url: '', status: 'active' })
   }
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this social media account?')) {
+      await fetch(`/api/platform/${id}`, {
+        method: 'DELETE',
+      });
       setAccounts(accounts.filter((acc) => acc.id !== id))
     }
   }
 
-  const toggleStatus = (id: string) => {
+  const toggleStatus = async (id: string) => {
+    const account = accounts.find(acc => acc.id === id);
+    if (!account) return;
+    await fetch(`/api/platform/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+    });
     setAccounts(
       accounts.map((acc) =>
         acc.id === id
@@ -91,6 +126,17 @@ export default function SocialMediaPage() {
           : acc
       )
     )
+  }
+
+  if (isLoadingPlatform) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading blog post...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -211,11 +257,10 @@ export default function SocialMediaPage() {
                     </td>
                     <td className="px-6 py-4 text-sm">
                       <span
-                        className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold ${
-                          account.status === 'active'
+                        className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold ${account.status === 'active'
                             ? 'bg-green-100 text-green-800'
                             : 'bg-gray-100 text-gray-800'
-                        }`}
+                          }`}
                       >
                         {account.status === 'active' ? (
                           <Eye size={14} />

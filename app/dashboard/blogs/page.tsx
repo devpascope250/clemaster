@@ -2,10 +2,40 @@
 
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { blogPosts } from '@/lib/data/blogs'
 import { Edit2, Trash2, Eye, Plus } from 'lucide-react'
+import React from 'react'
+import { blogs } from '@prisma/client'
 
 export default function BlogsPage() {
+  const [blogPosts, setBlogPosts] = React.useState<blogs[]>([])
+  const fetchBlogs = async () => {
+    try {
+      const response = await fetch('/api/blogs');
+      const data = await response.json();
+      setBlogPosts(data);
+    } catch (error) {
+      console.error('Error fetching blog posts:', error);
+      // Use mock data if API fails
+      setBlogPosts([]);
+    }
+  };
+  React.useEffect(() => {
+    fetchBlogs()
+  }, [])
+
+  const handleDeleteBlog = async(id: string) => {
+     try {
+      await fetch(`/api/blogs/${id}`,
+        {
+          method: "DELETE"
+        }
+        
+      );
+      fetchBlogs()
+    } catch (error) {
+      console.error('Error fetching blog posts:', error);
+    }
+  } 
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -29,7 +59,6 @@ export default function BlogsPage() {
             <thead className="bg-muted border-b border-border">
               <tr>
                 <th className="text-left px-6 py-4 font-semibold text-foreground">Title</th>
-                <th className="text-left px-6 py-4 font-semibold text-foreground hidden sm:table-cell">Category</th>
                 <th className="text-left px-6 py-4 font-semibold text-foreground hidden md:table-cell">Date</th>
                 <th className="text-left px-6 py-4 font-semibold text-foreground">Actions</th>
               </tr>
@@ -43,7 +72,7 @@ export default function BlogsPage() {
                       <p className="text-sm text-muted-foreground truncate">{post.excerpt}</p>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-muted-foreground hidden sm:table-cell">{post.category}</td>
+                
                   <td className="px-6 py-4 text-muted-foreground hidden md:table-cell">
                     {new Date(post.date).toLocaleDateString()}
                   </td>
@@ -59,7 +88,7 @@ export default function BlogsPage() {
                           <Edit2 size={16} />
                         </button>
                       </Link>
-                      <button className="p-2 hover:bg-red-50 rounded-lg transition-colors text-muted-foreground hover:text-red-600">
+                      <button className="p-2 hover:bg-red-50 rounded-lg transition-colors text-muted-foreground hover:text-red-600" onClick={() => handleDeleteBlog(post.id)}>
                         <Trash2 size={16} />
                       </button>
                     </div>
