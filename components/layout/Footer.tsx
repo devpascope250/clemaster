@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, Youtube } from 'lucide-react'
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaXTwitter, FaTiktok } from "react-icons/fa6";
+import { Mail, MapPin, Music, Phone } from 'lucide-react'
 import { defaultSocialMediaAccounts } from '@/lib/data/socialMedia'
 import Image from 'next/image'
 
@@ -16,11 +17,11 @@ const companyInfo = {
 }
 
 const socialMediaIcons: Record<string, React.ComponentType<{ size: number }>> = {
-  facebook: Facebook,
-  instagram: Instagram,
-  linkedin: Linkedin,
-  twitter: Twitter,
-  youtube: Youtube,
+  facebook: FaFacebookF,
+  instagram: FaInstagram,
+  linkedin: FaLinkedinIn,
+  twitter: FaXTwitter,
+  tiktok: FaTiktok,
 }
 
 export function Footer() {
