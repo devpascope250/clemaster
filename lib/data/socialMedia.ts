@@ -29,7 +29,7 @@ export const defaultSocialMediaAccounts: SocialMediaAccount[] = [
     platform: 'Twitter',
     url: 'https://x.com/ClemasterInd',
     icon: 'twitter',
-    status: 'inactive',
+    status: 'active',
     createdAt: '2024-01-15',
   },
   {

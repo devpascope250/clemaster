@@ -11,7 +11,7 @@ export function ContactButtons() {
     {
       icon: MessageCircle,
       label: 'WhatsApp',
-      href: 'https://wa.me/250790137658',
+      href: 'https://wa.me/250793761333',
       color: 'bg-green-500 hover:bg-green-600',
     },
     {

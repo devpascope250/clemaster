@@ -14,13 +14,13 @@ export default function BlogPage() {
   const postsPerPage = 6
 
   const filteredPosts = useMemo(() => {
-    return blogPosts.filter((post) => {
+    return blogPosts&&blogPosts.length > 0 && blogPosts?.filter((post) => {
       const matchesSearch =
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         post?.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
-      return matchesSearch 
+      return matchesSearch
     })
-  }, [searchTerm, blogPosts])
+  }, [searchTerm, blogPosts]) || []
 
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage)
   const paginatedPosts = filteredPosts.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)

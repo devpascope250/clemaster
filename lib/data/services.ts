@@ -102,7 +102,7 @@ export const companyInfo: CompanyInfo = {
   tagline: 'Excellence in Cleaning & Hygiene Solutions',
   description:
     'Clemaster Industries is a leading manufacturer of professional-grade cleaning and hygienic products serving businesses worldwide.',
-  foundedYear: 2010,
+  foundedYear: 2021,
   workingHours: {
     weekdays: 'Monday - Friday: 8:00 AM - 5:00 PM',
     weekends: 'Saturday: 8:00 AM - 5:00 PM | Sunday: Closed',
@@ -116,6 +116,6 @@ export const companyInfo: CompanyInfo = {
   capacities: {
     dailyProduction: '50,000+ packages per day',
     employeeCount: '150+ trained professionals',
-    certifications: ['ISO 9001:2015', 'ISO 14001:2015', 'USDA Approved', 'FDA Registered'],
+    certifications: ['RS EAS 271-1:2021', 'RSB Approved',],
   },
 }
