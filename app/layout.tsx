@@ -5,6 +5,7 @@ import './globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { ContactButtons } from '@/components/layout/ContactButtons'
+import Analytics from '@/components/ui/Analytics'
 
 const _geist = Geist({ subsets: ['latin'] })
 const _geistMono = Geist_Mono({ subsets: ['latin'] })
@@ -72,7 +73,9 @@ export default function RootLayout({
     <html lang="en">
       <body className="font-sans antialiased flex flex-col min-h-screen">
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1">
+          <Analytics />
+          {children}</main>
         <Footer />
         <ContactButtons />
       </body>
