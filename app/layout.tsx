@@ -6,6 +6,7 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { ContactButtons } from '@/components/layout/ContactButtons'
 import Analytics from '@/components/ui/Analytics'
+import { Suspense } from 'react'
 
 const _geist = Geist({ subsets: ['latin'] })
 const _geistMono = Geist_Mono({ subsets: ['latin'] })
@@ -74,7 +75,10 @@ export default function RootLayout({
       <body className="font-sans antialiased flex flex-col min-h-screen">
         <Header />
         <main className="flex-1">
-          <Analytics />
+          <Suspense fallback={null}>
+            <Analytics />
+          </Suspense>
+
           {children}</main>
         <Footer />
         <ContactButtons />
