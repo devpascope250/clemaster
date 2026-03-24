@@ -1,25 +1,25 @@
 "use client";
 
-import { usePathname, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef } from "react";
 
-declare global {
-  interface Window {
-    gtag?: (...args: any[]) => void;
-  }
-}
+const GA_MEASUREMENT_ID = "G-T9TP3FX9XB";
 
-export default function Analytics() {
+
+export default function GoogleAnalytics() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const prevPath = useRef<string | null>(""); // Accepts string or null
 
   useEffect(() => {
-    const url = pathname + "?" + searchParams.toString();
+    if (typeof window.gtag !== "function") return;
 
-    window.gtag?.("config", "G-T9TP3FX9XB", {
-      page_path: url,
-    });
-  }, [pathname, searchParams]);
+    if (prevPath.current !== pathname) {
+      window.gtag("config", GA_MEASUREMENT_ID, {
+        page_path: pathname,
+      });
+      prevPath.current = pathname;
+    }
+  }, [pathname]);
 
   return null;
 }

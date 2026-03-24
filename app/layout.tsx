@@ -7,6 +7,7 @@ import { Footer } from '@/components/layout/Footer'
 import { ContactButtons } from '@/components/layout/ContactButtons'
 import Analytics from '@/components/ui/Analytics'
 import { Suspense } from 'react'
+import Script from 'next/script'
 
 const _geist = Geist({ subsets: ['latin'] })
 const _geistMono = Geist_Mono({ subsets: ['latin'] })
@@ -73,11 +74,25 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans antialiased flex flex-col min-h-screen">
+        <Script
+          id="ga4-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-T9TP3FX9XB', {
+        page_path: window.location.pathname,
+      });
+    `,
+          }}
+        />
         <Header />
         <main className="flex-1">
-          <Suspense fallback={null}>
+          {/* <Suspense fallback={null}> */}
             <Analytics />
-          </Suspense>
+          {/* </Suspense> */}
 
           {children}</main>
         <Footer />
