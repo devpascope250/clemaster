@@ -36,7 +36,7 @@ function UsersContent() {
     initialValues: {
       name: '',
       email: '',
-      role: 'user',
+      role: 'editor',
       phone: '',
       status: 'active',
       password: '',
@@ -336,7 +336,8 @@ function UsersContent() {
                       : 'border-border'
                       }`}
                   >
-                    <option value="editor">Editor</option>
+                    <option value="">Select Role</option>
+                    <option value="editor" selected>Editor</option>
                   </select>
                   {formik.touched.role && formik.errors.role && (
                     <p className="mt-1 text-sm text-red-500">{formik.errors.role}</p>

@@ -17,7 +17,7 @@ export function ContactButtons() {
     {
       icon: Phone,
       label: 'Phone',
-      href: 'tel:+250790137658',
+      href: 'tel:+250793761333',
       color: 'bg-blue-500 hover:bg-blue-600',
     },
     {

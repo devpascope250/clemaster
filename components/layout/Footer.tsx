@@ -11,8 +11,8 @@ const companyInfo = {
   legalName: 'Value Platform Industrial Rwanda Ltd',
   domain: 'clemasterindustries.com',
   email: 'info@clemasterindustries.com',
-  phone: '+250790137658',
-  address: 'Kigali, Rwanda',
+  phone: '+250793761333',
+  address: 'Rwamagana, Rwanda',
   motto: 'Excellence in Cleaning, Innovation in Hygiene',
 }
 

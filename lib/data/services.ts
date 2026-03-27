@@ -109,7 +109,7 @@ export const companyInfo: CompanyInfo = {
   },
   contact: {
     email: 'info@clemasterindustries.com',
-    phone: '+250 790 137 658',
+    phone: '+250793761333',
     address: 'Industrial Park Zone, Rwamagana',
     country: 'Rwanda',
   },
