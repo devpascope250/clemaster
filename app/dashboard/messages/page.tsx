@@ -213,6 +213,24 @@ function MessagesContent() {
                   </div>
                 </div>
 
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                  <p className="text-sm text-muted-foreground mb-1">Received</p>
+                  <p className="text-foreground">
+                    {new Date(selectedMessage.date).toLocaleString()}
+                  </p>
+                </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">Phone Number</p>
+                    <a 
+                      href={`tel:${selectedMessage.phone}`}
+                      className="font-medium text-primary hover:underline"
+                    >
+                      {selectedMessage.phone}
+                    </a>
+                  </div>
+                </div>
+
                 {/* Subject */}
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Subject</p>
@@ -220,12 +238,7 @@ function MessagesContent() {
                 </div>
 
                 {/* Date */}
-                <div>
-                  <p className="text-sm text-muted-foreground mb-1">Received</p>
-                  <p className="text-foreground">
-                    {new Date(selectedMessage.date).toLocaleString()}
-                  </p>
-                </div>
+                
 
                 {/* Message */}
                 <div>
@@ -241,14 +254,14 @@ function MessagesContent() {
 
             {/* Modal Footer */}
             <div className="flex justify-end gap-3 p-6 border-t border-border bg-muted/50">
-              <button
+              {/* <button
                 onClick={() => {
                   window.location.href = `mailto:${selectedMessage.email}?subject=Re: ${selectedMessage.subject}`;
                 }}
                 className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium"
               >
                 Reply via Email
-              </button>
+              </button> */}
               <button
                 onClick={() => {
                   handleDelete(selectedMessage.id);
