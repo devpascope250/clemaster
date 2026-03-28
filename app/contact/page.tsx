@@ -7,6 +7,7 @@ import { companyInfo } from '@/lib/data/services'
 import { Mail, Phone, MapPin, Clock } from 'lucide-react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import { toast } from 'sonner';
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
   const formik = useFormik({
@@ -26,7 +27,7 @@ export default function ContactPage() {
     }),
     onSubmit: async (values) => {
       try {
-        const response = await fetch('/api/contact', {
+        const response = await fetch('/api/message', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
