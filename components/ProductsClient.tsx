@@ -72,7 +72,7 @@ export function ProductsClient({ products }: ProductsClientProps) {
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-6xl">
           {filteredProducts.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {filteredProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
