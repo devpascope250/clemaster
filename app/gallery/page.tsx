@@ -57,12 +57,7 @@ const galleryData = {
           alt: 'Packaging line',
           caption: 'Control room.'
         },
-        {
-          id: 'f5',
-          src: '/images/n/in-factory-5.jpg',
-          alt: 'Raw material storage',
-          caption: 'Finished products storage'
-        },
+        
         {
           id: 'f6',
           src: '/images/n/in-factory-6.jpg',
@@ -192,7 +187,12 @@ const galleryData = {
           alt: 'Floor care products',
           caption: 'Clemaster Powder Cleaner 500g delivers powerful stain removal and fresh fragrance for cleaner, brighter clothes.'
         },
-        
+        {
+          id: 'p10',
+          src: '/images/n/in-factory-5.jpg',
+          alt: 'Floor care products',
+          caption: 'Stock of clemaster washing powder'
+        }
       ]
     },
     {
