@@ -16,6 +16,7 @@ export function Header() {
     { label: 'Blog', href: '/blog' },
     { label: 'Team', href: '/team' },
     { label: 'Contact', href: '/contact' },
+    { label: 'Gallery', href: '/gallery' },
   ]
 
   return (

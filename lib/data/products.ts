@@ -90,5 +90,4 @@ export const products: Product[] = [
     image: '/images/clemaster washing powder 500kg.jpeg',
     featured: false,
   }
-
 ]
