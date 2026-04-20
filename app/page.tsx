@@ -1614,7 +1614,7 @@ export default function Home() {
             <div className="animate-fade-in-up animation-delay-200">
               <div className="relative rounded-xl overflow-hidden shadow-2xl border border-white/30 bg-black/20 backdrop-blur-sm">
                 <iframe
-                  src="https://player.cloudinary.com/embed/?cloud_name=dkwrvu4qy&public_id=mmexport1776676909880_zbaklv&autoplay=true&muted=true"
+                  src="https://player.cloudinary.com/embed/?cloud_name=dkwrvu4qy&public_id=mmexport1776676909880_zbaklv&autoplay=true&muted=true&loop=true&playsinline=true"
                   style={{ height: "auto", width: "100%", aspectRatio: "16/9" }}
                   allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
                   allowFullScreen
@@ -1672,7 +1672,7 @@ export default function Home() {
             <div className="animate-fade-in-up animation-delay-300">
               <div className="relative rounded-xl lg:rounded-2xl overflow-hidden shadow-2xl border border-white/30 bg-black/20 backdrop-blur-sm">
                 <iframe
-                  src="https://player.cloudinary.com/embed/?cloud_name=dkwrvu4qy&public_id=mmexport1776676909880_zbaklv&autoplay=true&muted=true"
+                  src="https://player.cloudinary.com/embed/?cloud_name=dkwrvu4qy&public_id=mmexport1776676909880_zbaklv&autoplay=true&muted=true&loop=true&playsinline=true"
                   style={{ height: "auto", width: "100%", aspectRatio: "16/9" }}
                   allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
                   allowFullScreen
@@ -1729,7 +1729,7 @@ export default function Home() {
             <div className="animate-fade-in-up animation-delay-200">
               <div className="relative rounded-xl overflow-hidden shadow-xl border border-white/30 bg-black/20 backdrop-blur-sm">
                 <iframe
-                  src="https://player.cloudinary.com/embed/?cloud_name=dkwrvu4qy&public_id=mmexport1776676909880_zbaklv&autoplay=true&muted=true"
+                  src="https://player.cloudinary.com/embed/?cloud_name=dkwrvu4qy&public_id=mmexport1776676909880_zbaklv&autoplay=true&muted=true&loop=true&playsinline=true"
                   style={{ height: "auto", width: "100%", aspectRatio: "16/9" }}
                   allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
                   allowFullScreen
