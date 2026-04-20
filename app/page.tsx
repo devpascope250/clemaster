@@ -1526,235 +1526,233 @@ export default function Home() {
   return (
     <>
       {/* Hero Section - Reduced Height */}
-     <section className="relative min-h-[90vh] md:h-[85vh] flex items-center overflow-hidden">
-  {/* Background Overlay - Adjusted for better text readability */}
-  <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/30 md:from-black/80 md:via-black/50 md:to-black/20 z-10" />
+      <section className="relative min-h-[90vh] md:h-[85vh] flex items-center overflow-hidden">
+        {/* Background Overlay - Adjusted for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/30 md:from-black/80 md:via-black/50 md:to-black/20 z-10" />
 
-  {/* Sliding Images Container with Ken Burns Effect */}
-  <div className="absolute inset-0 w-full h-full">
-    {heroSlides.map((slide, index) => (
-      <div
-        key={slide.id}
-        className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
-          index === currentSlide ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        <div className="relative w-full h-full">
-          <Image
-            src={slide.image}
-            alt={slide.alt}
-            fill
-            priority={index === 0}
-            sizes="100vw"
-            className="object-cover scale-105 animate-ken-burns"
-            style={{ animationPlayState: index === currentSlide ? 'running' : 'paused' }}
-          />
-        </div>
-      </div>
-    ))}
-  </div>
-
-  {/* Slide Indicators */}
-  <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex gap-2">
-    {heroSlides.map((_, index) => (
-      <button
-        key={index}
-        onClick={() => goToSlide(index)}
-        className={`transition-all duration-300 rounded-full ${
-          index === currentSlide
-            ? 'w-8 h-2 bg-white'
-            : 'w-2 h-2 bg-white/40 hover:bg-white/60'
-        }`}
-        aria-label={`Go to slide ${index + 1}`}
-      />
-    ))}
-  </div>
-
-  {/* Hero Content - Responsive Layout */}
-  <div className="relative z-10 container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 md:py-12 lg:py-16">
-    
-    {/* MOBILE: Stacked Layout (Text → Video) */}
-    <div className="lg:hidden space-y-8">
-      {/* Text Content */}
-      <div className="animate-fade-in-up">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-4">
-          <Sparkles className="w-3.5 h-3.5 text-yellow-400" />
-          <span className="text-xs sm:text-sm text-white/90 tracking-wide">Industry Leader Since 2021</span>
+        {/* Sliding Images Container with Ken Burns Effect */}
+        <div className="absolute inset-0 w-full h-full">
+          {heroSlides.map((slide, index) => (
+            <div
+              key={slide.id}
+              className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'
+                }`}
+            >
+              <div className="relative w-full h-full">
+                <Image
+                  src={slide.image}
+                  alt={slide.alt}
+                  fill
+                  priority={index === 0}
+                  sizes="100vw"
+                  className="object-cover scale-105 animate-ken-burns"
+                  style={{ animationPlayState: index === currentSlide ? 'running' : 'paused' }}
+                />
+              </div>
+            </div>
+          ))}
         </div>
 
-        <div className="space-y-4">
-          <h1 className="text-3xl sm:text-4xl font-bold text-white text-balance leading-[1.2] tracking-tight">
-            Professional Cleaning
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary-foreground to-white/80">
-              Solutions
-            </span>
-          </h1>
-          <p className="text-base text-white/80 leading-relaxed">
-            Clemaster Industries delivers premium cleaning and hygienic products engineered for excellence,
-            trusted by businesses across Africa and beyond.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 pt-2">
-            <Link href="/products">
-              <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white w-full sm:w-auto h-11 text-sm shadow-lg shadow-primary/25 hover:shadow-xl transition-all duration-300 group">
-                Browse Products
-                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
-              </Button>
-            </Link>
-            <Link href="/contact">
-              <Button
-                variant="outline"
-                className="border-white/30 text-white bg-white/10 backdrop-blur-sm hover:bg-white/20 hover:border-white/50 w-full sm:w-auto h-11 text-sm transition-all duration-300"
-              >
-                Get in Touch
-              </Button>
-            </Link>
+        {/* Slide Indicators */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex gap-2">
+          {heroSlides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`transition-all duration-300 rounded-full ${index === currentSlide
+                  ? 'w-8 h-2 bg-white'
+                  : 'w-2 h-2 bg-white/40 hover:bg-white/60'
+                }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Hero Content - Responsive Layout */}
+        <div className="relative z-10 container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 md:py-12 lg:py-16">
+
+          {/* MOBILE: Stacked Layout (Text → Video) */}
+          <div className="lg:hidden space-y-8">
+            {/* Text Content */}
+            <div className="animate-fade-in-up">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-4">
+                <Sparkles className="w-3.5 h-3.5 text-yellow-400" />
+                <span className="text-xs sm:text-sm text-white/90 tracking-wide">Industry Leader Since 2021</span>
+              </div>
+
+              <div className="space-y-4">
+                <h1 className="text-3xl sm:text-4xl font-bold text-white text-balance leading-[1.2] tracking-tight">
+                  Professional Cleaning
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary-foreground to-white/80">
+                    Solutions
+                  </span>
+                </h1>
+                <p className="text-base text-white/80 leading-relaxed">
+                  Clemaster Industries delivers premium cleaning and hygienic products engineered for excellence,
+                  trusted by businesses across Africa and beyond.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                  <Link href="/products">
+                    <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white w-full sm:w-auto h-11 text-sm shadow-lg shadow-primary/25 hover:shadow-xl transition-all duration-300 group">
+                      Browse Products
+                      <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
+                    </Button>
+                  </Link>
+                  <Link href="/contact">
+                    <Button
+                      variant="outline"
+                      className="border-white/30 text-white bg-white/10 backdrop-blur-sm hover:bg-white/20 hover:border-white/50 w-full sm:w-auto h-11 text-sm transition-all duration-300"
+                    >
+                      Get in Touch
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Video Ad - Below text on mobile */}
+            <div className="animate-fade-in-up animation-delay-200">
+              <div className="relative rounded-xl overflow-hidden shadow-2xl border border-white/30 bg-black/20 backdrop-blur-sm">
+                <iframe
+                  src="https://player.cloudinary.com/embed/?cloud_name=dkwrvu4qy&public_id=mmexport1776676909880_zbaklv&autoplay=true&muted=true"
+                  style={{ height: "auto", width: "100%", aspectRatio: "16/9" }}
+                  allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                  frameBorder="0"
+                  className="w-full"
+                />
+              </div>
+              <p className="text-white/80 text-xs lg:text-sm mt-3 text-center">
+                Watch how Clemaster transforms spaces(Official RTV Advert Video)
+              </p>
+            </div>
+          </div>
+
+          {/* TABLET & DESKTOP: Side-by-Side Layout */}
+          <div className="hidden lg:grid lg:grid-cols-2 gap-6 xl:gap-8 items-center">
+
+            {/* Left Column - Text Content */}
+            <div className="animate-fade-in-up">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-4">
+                <Sparkles className="w-3.5 h-3.5 text-yellow-400" />
+                <span className="text-xs text-white/90 tracking-wide">Industry Leader Since 2021</span>
+              </div>
+
+              <div className="space-y-4">
+                <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white text-balance leading-[1.2] tracking-tight">
+                  Professional Cleaning
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary-foreground to-white/80">
+                    Solutions
+                  </span>
+                </h1>
+                <p className="text-base lg:text-lg text-white/80 max-w-xl leading-relaxed">
+                  Clemaster Industries delivers premium cleaning and hygienic products engineered for excellence,
+                  trusted by businesses across Africa and beyond.
+                </p>
+                <div className="flex flex-row gap-3 pt-3">
+                  <Link href="/products">
+                    <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white h-11 text-sm lg:text-base shadow-lg shadow-primary/25 hover:shadow-xl transition-all duration-300 group">
+                      Browse Products
+                      <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
+                    </Button>
+                  </Link>
+                  <Link href="/contact">
+                    <Button
+                      variant="outline"
+                      className="border-white/30 text-white bg-white/10 backdrop-blur-sm hover:bg-white/20 hover:border-white/50 h-11 text-sm lg:text-base transition-all duration-300"
+                    >
+                      Get in Touch
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column - Video Ad */}
+            <div className="animate-fade-in-up animation-delay-300">
+              <div className="relative rounded-xl lg:rounded-2xl overflow-hidden shadow-2xl border border-white/30 bg-black/20 backdrop-blur-sm">
+                <iframe
+                  src="https://player.cloudinary.com/embed/?cloud_name=dkwrvu4qy&public_id=mmexport1776676909880_zbaklv&autoplay=true&muted=true"
+                  style={{ height: "auto", width: "100%", aspectRatio: "16/9" }}
+                  allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                  frameBorder="0"
+                  className="w-full"
+                />
+              </div>
+              <p className="text-white/80 text-xs lg:text-sm mt-3 text-center">
+                Watch how Clemaster transforms spaces(Official RTV Advert Video)
+              </p>
+            </div>
+          </div>
+
+          {/* TABLET ONLY: Adjusted layout (768px - 1023px) */}
+          <div className="hidden md:grid lg:hidden grid-cols-2 gap-6 items-center mt-8">
+            {/* Left Column - Slightly smaller text for tablet */}
+            <div className="animate-fade-in-up">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-3">
+                <Sparkles className="w-3 h-3 text-yellow-400" />
+                <span className="text-xs text-white/90 tracking-wide">Industry Leader Since 2021</span>
+              </div>
+
+              <div className="space-y-3">
+                <h1 className="text-3xl md:text-4xl font-bold text-white text-balance leading-[1.2] tracking-tight">
+                  Professional Cleaning
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary-foreground to-white/80">
+                    Solutions
+                  </span>
+                </h1>
+                <p className="text-sm md:text-base text-white/80 leading-relaxed">
+                  Clemaster Industries delivers premium cleaning and hygienic products engineered for excellence,
+                  trusted by businesses across Africa and beyond.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-2 pt-2">
+                  <Link href="/products">
+                    <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white w-full h-10 text-sm shadow-lg shadow-primary/25 hover:shadow-xl transition-all duration-300 group">
+                      Browse Products
+                      <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={16} />
+                    </Button>
+                  </Link>
+                  <Link href="/contact">
+                    <Button
+                      variant="outline"
+                      className="border-white/30 text-white bg-white/10 backdrop-blur-sm hover:bg-white/20 hover:border-white/50 w-full h-10 text-sm transition-all duration-300"
+                    >
+                      Get in Touch
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column - Video for tablet */}
+            <div className="animate-fade-in-up animation-delay-200">
+              <div className="relative rounded-xl overflow-hidden shadow-xl border border-white/30 bg-black/20 backdrop-blur-sm">
+                <iframe
+                  src="https://player.cloudinary.com/embed/?cloud_name=dkwrvu4qy&public_id=mmexport1776676909880_zbaklv&autoplay=true&muted=true"
+                  style={{ height: "auto", width: "100%", aspectRatio: "16/9" }}
+                  allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                  frameBorder="0"
+                  className="w-full"
+                />
+              </div>
+              <p className="text-white/80 text-xs lg:text-sm mt-3 text-center">
+                Watch how Clemaster transforms spaces(Official RTV Advert Video)
+              </p>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Video Ad - Below text on mobile */}
-      <div className="animate-fade-in-up animation-delay-200">
-        <div className="relative rounded-xl overflow-hidden shadow-2xl border border-white/30 bg-black/20 backdrop-blur-sm">
-          <iframe
-            src="https://player.cloudinary.com/embed/?cloud_name=dkwrvu4qy&public_id=mmexport1776676909880_zbaklv"
-            style={{ height: "auto", width: "100%", aspectRatio: "16/9" }}
-            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-            allowFullScreen
-            frameBorder="0"
-            className="w-full"
-          />
-        </div>
-        <p className="text-white/80 text-xs lg:text-sm mt-3 text-center">
-          Watch how Clemaster transforms spaces(Official RTV Advert Video)
-        </p>
-      </div>
-    </div>
-
-    {/* TABLET & DESKTOP: Side-by-Side Layout */}
-    <div className="hidden lg:grid lg:grid-cols-2 gap-6 xl:gap-8 items-center">
-      
-      {/* Left Column - Text Content */}
-      <div className="animate-fade-in-up">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-4">
-          <Sparkles className="w-3.5 h-3.5 text-yellow-400" />
-          <span className="text-xs text-white/90 tracking-wide">Industry Leader Since 2021</span>
-        </div>
-
-        <div className="space-y-4">
-          <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white text-balance leading-[1.2] tracking-tight">
-            Professional Cleaning
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary-foreground to-white/80">
-              Solutions
-            </span>
-          </h1>
-          <p className="text-base lg:text-lg text-white/80 max-w-xl leading-relaxed">
-            Clemaster Industries delivers premium cleaning and hygienic products engineered for excellence,
-            trusted by businesses across Africa and beyond.
-          </p>
-          <div className="flex flex-row gap-3 pt-3">
-            <Link href="/products">
-              <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white h-11 text-sm lg:text-base shadow-lg shadow-primary/25 hover:shadow-xl transition-all duration-300 group">
-                Browse Products
-                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
-              </Button>
-            </Link>
-            <Link href="/contact">
-              <Button
-                variant="outline"
-                className="border-white/30 text-white bg-white/10 backdrop-blur-sm hover:bg-white/20 hover:border-white/50 h-11 text-sm lg:text-base transition-all duration-300"
-              >
-                Get in Touch
-              </Button>
-            </Link>
+        {/* Scroll Indicator - Hidden on mobile when video is present */}
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 hidden md:block animate-bounce">
+          <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center">
+            <div className="w-1 h-2 bg-white/60 rounded-full mt-2 animate-scroll-down" />
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Right Column - Video Ad */}
-      <div className="animate-fade-in-up animation-delay-300">
-        <div className="relative rounded-xl lg:rounded-2xl overflow-hidden shadow-2xl border border-white/30 bg-black/20 backdrop-blur-sm">
-          <iframe
-            src="https://player.cloudinary.com/embed/?cloud_name=dkwrvu4qy&public_id=mmexport1776676909880_zbaklv"
-            style={{ height: "auto", width: "100%", aspectRatio: "16/9" }}
-            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-            allowFullScreen
-            frameBorder="0"
-            className="w-full"
-          />
-        </div>
-        <p className="text-white/80 text-xs lg:text-sm mt-3 text-center">
-          Watch how Clemaster transforms spaces(Official RTV Advert Video)
-        </p>
-      </div>
-    </div>
-
-    {/* TABLET ONLY: Adjusted layout (768px - 1023px) */}
-    <div className="hidden md:grid lg:hidden grid-cols-2 gap-6 items-center mt-8">
-      {/* Left Column - Slightly smaller text for tablet */}
-      <div className="animate-fade-in-up">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-3">
-          <Sparkles className="w-3 h-3 text-yellow-400" />
-          <span className="text-xs text-white/90 tracking-wide">Industry Leader Since 2021</span>
-        </div>
-
-        <div className="space-y-3">
-          <h1 className="text-3xl md:text-4xl font-bold text-white text-balance leading-[1.2] tracking-tight">
-            Professional Cleaning
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary-foreground to-white/80">
-              Solutions
-            </span>
-          </h1>
-          <p className="text-sm md:text-base text-white/80 leading-relaxed">
-            Clemaster Industries delivers premium cleaning and hygienic products engineered for excellence,
-            trusted by businesses across Africa and beyond.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-2 pt-2">
-            <Link href="/products">
-              <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white w-full h-10 text-sm shadow-lg shadow-primary/25 hover:shadow-xl transition-all duration-300 group">
-                Browse Products
-                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={16} />
-              </Button>
-            </Link>
-            <Link href="/contact">
-              <Button
-                variant="outline"
-                className="border-white/30 text-white bg-white/10 backdrop-blur-sm hover:bg-white/20 hover:border-white/50 w-full h-10 text-sm transition-all duration-300"
-              >
-                Get in Touch
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* Right Column - Video for tablet */}
-      <div className="animate-fade-in-up animation-delay-200">
-        <div className="relative rounded-xl overflow-hidden shadow-xl border border-white/30 bg-black/20 backdrop-blur-sm">
-          <iframe
-            src="https://player.cloudinary.com/embed/?cloud_name=dkwrvu4qy&public_id=mmexport1776676909880_zbaklv"
-            style={{ height: "auto", width: "100%", aspectRatio: "16/9" }}
-            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-            allowFullScreen
-            frameBorder="0"
-            className="w-full"
-          />
-        </div>
-        <p className="text-white/80 text-xs lg:text-sm mt-3 text-center">
-          Watch how Clemaster transforms spaces(Official RTV Advert Video)
-        </p>
-      </div>
-    </div>
-  </div>
-
-  {/* Scroll Indicator - Hidden on mobile when video is present */}
-  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 hidden md:block animate-bounce">
-    <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center">
-      <div className="w-1 h-2 bg-white/60 rounded-full mt-2 animate-scroll-down" />
-    </div>
-  </div>
-</section>
-
-{/* Company Overview - Modern Stats Section */}
+      {/* Company Overview - Modern Stats Section */}
 
       {/* Company Overview - Modern Stats Section */}
       <section ref={statsRef} className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-background via-background to-primary/5">
@@ -1783,7 +1781,7 @@ export default function Home() {
         </div>
       </section>
 
-      
+
 
       {/* Working Hours - Modern Cards */}
       <section ref={hoursRef} className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
@@ -1824,61 +1822,61 @@ export default function Home() {
       </section>
 
 
-      
+
       {/* In-Factory Images Section */}
-<section ref={inFactoryRef} className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
-  <div className="container mx-auto max-w-7xl">
-    <div className={`transition-all duration-700 ${inFactoryVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-      {/* Header with View Gallery Link */}
-      <div className="flex flex-col sm:flex-row items-center justify-between mb-8">
-        <div className="text-center sm:text-left">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
-            <Factory className="w-4 h-4 text-primary" />
-            <span className="text-sm text-primary font-medium">Manufacturing Excellence</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-3">Inside Our Factory</h2>
-          <p className="text-base text-muted-foreground max-w-2xl">
-            Take a glimpse into our state-of-the-art manufacturing facility where quality meets innovation.
-          </p>
-        </div>
-        <Link 
-          href="/gallery?filter=factory" 
-          className="group inline-flex items-center gap-2 px-4 py-2 mt-4 sm:mt-0 rounded-full bg-primary/10 hover:bg-primary/20 border border-primary/20 text-primary transition-all duration-300"
-        >
-          <span className="text-sm font-medium">View Gallery</span>
-          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-        </Link>
-      </div>
-    </div>
-    
-    <div className="grid md:grid-cols-3 gap-6">
-      {inFactoryImages.map((image, index) => (
-        <div
-          key={image.id}
-          className={`group relative overflow-hidden rounded-2xl bg-card border border-border transition-all duration-500 hover:shadow-xl hover:-translate-y-1 ${inFactoryVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-          style={{ transitionDelay: `${index * 100}ms` }}
-        >
-          <div className="relative h-64 w-full overflow-hidden">
-            <Image
-              src={image.image}
-              alt={image.alt}
-              fill
-              sizes="(max-width: 768px) 100vw, 33vw"
-              className="object-cover group-hover:scale-110 transition-transform duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-4">
-              <p className="text-white text-sm font-medium">{image.caption}</p>
+      <section ref={inFactoryRef} className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
+        <div className="container mx-auto max-w-7xl">
+          <div className={`transition-all duration-700 ${inFactoryVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            {/* Header with View Gallery Link */}
+            <div className="flex flex-col sm:flex-row items-center justify-between mb-8">
+              <div className="text-center sm:text-left">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
+                  <Factory className="w-4 h-4 text-primary" />
+                  <span className="text-sm text-primary font-medium">Manufacturing Excellence</span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-3">Inside Our Factory</h2>
+                <p className="text-base text-muted-foreground max-w-2xl">
+                  Take a glimpse into our state-of-the-art manufacturing facility where quality meets innovation.
+                </p>
+              </div>
+              <Link
+                href="/gallery?filter=factory"
+                className="group inline-flex items-center gap-2 px-4 py-2 mt-4 sm:mt-0 rounded-full bg-primary/10 hover:bg-primary/20 border border-primary/20 text-primary transition-all duration-300"
+              >
+                <span className="text-sm font-medium">View Gallery</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
           </div>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
 
-{/* Out-Factory Images Section */}
-{/* <section ref={outFactoryRef} className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-background">
+          <div className="grid md:grid-cols-3 gap-6">
+            {inFactoryImages.map((image, index) => (
+              <div
+                key={image.id}
+                className={`group relative overflow-hidden rounded-2xl bg-card border border-border transition-all duration-500 hover:shadow-xl hover:-translate-y-1 ${inFactoryVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                style={{ transitionDelay: `${index * 100}ms` }}
+              >
+                <div className="relative h-64 w-full overflow-hidden">
+                  <Image
+                    src={image.image}
+                    alt={image.alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <p className="text-white text-sm font-medium">{image.caption}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Out-Factory Images Section */}
+      {/* <section ref={outFactoryRef} className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-background">
   <div className="container mx-auto max-w-7xl">
     <div className={`transition-all duration-700 ${outFactoryVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
 
