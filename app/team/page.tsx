@@ -39,9 +39,7 @@
 'use client'
 
 import Image from 'next/image'
-import { TeamMemberCardCompact } from '@/components/TeamMemberCardCompact'
 import { SectionHeading } from '@/components/SectionHeading'
-import { teamMembers } from '@/lib/data/team'
 import { Users } from 'lucide-react'
 
 export default function TeamPage() {
@@ -57,7 +55,7 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* Team Photo Section */}
+      {/* Team Photo Section - Enhanced with Management Description */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-muted/30">
         <div className="container mx-auto max-w-6xl">
           <div className="relative rounded-2xl overflow-hidden">
@@ -69,7 +67,6 @@ export default function TeamPage() {
               className="w-full h-auto object-cover"
               priority
             />
-            {/* Optional overlay with text */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end">
               <div className="p-8">
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 mb-3">
@@ -80,7 +77,7 @@ export default function TeamPage() {
                   Together We Deliver Excellence
                 </h3>
                 <p className="text-white/80 text-sm sm:text-base max-w-2xl">
-                  A dedicated team of professionals committed to providing the highest quality cleaning solutions.
+                  🌍 Our international management team brings together decades of industry expertise and advanced technical proficiency to deliver the highest quality cleaning solutions worldwide.
                 </p>
               </div>
             </div>
@@ -88,25 +85,7 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* Team Grid */}
-      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-10">
-            <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">Leadership Team</h3>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Meet the experts driving innovation and quality at Clemaster Industries.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {teamMembers.map((member) => (
-              <TeamMemberCardCompact key={member.id} member={member} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Team Culture Section - Optional */}
+      {/* Team Culture Section */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-primary/5 to-transparent">
         <div className="container mx-auto max-w-6xl">
           <div className="grid md:grid-cols-2 gap-8 items-center">
